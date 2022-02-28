@@ -1,0 +1,285 @@
+html,body{
+    height: 100%;
+    max-height: 100%;
+    font-family: 'Merriweather Sans', sans-serif;
+    background-color: #0a0c13;
+    color: #dedfe8;
+    letter-spacing: -.011rem;
+}
+a {
+    color: #fff;
+    text-decoration: none;
+}
+.bi{
+    background-color: transparent;
+    transition: 0.3s linear;
+    align-items: center;
+}
+.bi:hover{
+    background-color: #6e7281;
+    background-size: 20px;
+    color: white;
+    border-radius: 50%;
+}
+/* Navbar */
+/* .basket_total_nmb{
+    margin-left: 62px;
+} */
+.logo-text{
+    font-family: 'Satisfy', cursive;
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+/* Cart Offcanvas */
+.offcanvas {
+    position: fixed;
+    bottom: 0;
+    z-index: 1045;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    visibility: hidden;
+    background-color: #23293c;
+    background-clip: padding-box;
+    outline: 0;
+    transition: transform .3s ease-in-out;
+}
+.width-80 {
+    width: 80px!important;
+}
+
+
+/* Swiper pagination */
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #ffc107;
+    width: 2rem;
+}
+.swiper-pagination-bullet {
+    border-radius: 0.25rem;
+    height: 0.25rem;
+    transition: all .3s;
+    background-color: #bcc0ce;
+}
+.swiper-button-next, .swiper-button-prev {
+    color: #dedfe8;
+}
+
+
+/* .swiper-slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition-property: transform;
+} */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* Category and product */
+.category-box {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    /* padding: 12px 15px 8px; */
+    text-align: center;
+    background-color: transparent;
+    transition: all .3s;
+    text-decoration: none;
+    color: white;
+}
+.category-box:hover {
+    background-color: #ffc107;
+}
+
+.card.mt-4 .card-body .card-text.text-name{
+    font-weight: bold;
+    font-size: 17px;
+    margin-left: -15px;
+    margin-top: -5px;
+    margin-bottom: 5px;
+    transition: 0.3s linear; 
+}
+.card.mt-4 .card-body .card-text.text-name:hover{
+    color: #ffc107;
+}
+.card.mt-4 .card-body .card-text.text-price{
+    font-weight: lighter;
+    font-size: 12px;
+    margin-left: -15px;
+    margin-top: 2px;
+    margin-bottom: 1px;
+}
+.card.mt-4 {
+    display: inline-block; /* Строчно-блочный элемент */
+    overflow: hidden; /* Скрываем всё за контуром */
+    position: relative;
+    background-color: transparent;
+    border-radius: 0;
+}
+.card-img-top{
+    border-radius: 0;
+}
+.card.mt-4 img {
+    transition: 0.3s; /* Время эффекта */
+    display: block; /* Убираем небольшой отступ снизу */
+}
+.card.mt-4 img:hover {
+    transform: scale(1.05); /* Увеличиваем масштаб */
+}
+.button-product-home{
+    position:absolute;
+    left:0;
+    bottom: 160px;
+    right:0;
+    padding:20px;
+    transform: scale(0);
+    transition: 0.3s; 
+}
+.card.mt-4:hover .button-product-home{
+    transform: scale(1); 
+}
+/* Product info */
+.form-check-color .form-check-color-label {
+    position: relative;
+    width: 1.75rem;
+    height: 1.75rem;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #32394f;
+    cursor: pointer;
+}
+.form-check-color input:checked~label.form-check-color-label {
+    border-color: #dedfe8;
+    border-width: 3px;
+}
+label {
+    display: inline-block;
+}
+.count-input {
+    display: flex;
+    align-items: center;
+    border-radius: 0.2rem;
+    border: 1px solid #32394f;
+    position: relative;
+    width: 90px;
+}
+.count-input input.quantity {
+    flex-grow: 1;
+    border: 0;
+    border: 1px solid #32394f;
+    text-align: center;
+    width: 40px;
+    color: #dedfe8;
+}
+.count-input .incr-btn,.count-input .incr-btn-only {
+    display: flex;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 100px;
+    align-items: center;
+    justify-content: center;
+    color: #dedfe8;
+}
+.btn-buy{
+    color:#fff!important;
+    box-shadow: none!important;
+}
+
+/* Cart */
+
+.checkout-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.checkout-steps .divider {
+    border-top: 1px dashed #32394f;
+    width: 40px;
+    margin: 0 0.5rem;
+}
+.checkout-steps li.active {
+    border-bottom-color: #35b55b;
+    color: #35b55b;
+}
+.checkout-steps li:not(.divider) {
+    border-bottom: 2px solid transparent;
+    padding-bottom: 0.125rem;
+}
+.coupons-form, .basket-price-details, .list-group-item {
+    background: transparent;
+    border: 1px solid #121621;
+}
+.form-check-group {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-top: 1px solid #32394f;
+}
+.form-check-group .form-check-group-label::before {
+    content: "\f111";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    width: 1.875rem;
+    height: 1.875rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    font-size: 1.25rem;
+    opacity: .5;
+    transition: all .4s;
+}
+.form-check-group .form-check-group-label {
+    transition: all .3s;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    padding-left: 2.875rem;
+    position: relative;
+    color: #bcc0ce;
+}
+.form-check-group .form-check-group-input:checked~.form-check-group-label::before {
+    content: "\f058";
+    font-weight: 900;
+    color: #35b55b;
+    opacity: 1;
+}
+.nice-select.wide {
+    width: 100%;
+}
+.nice-select {
+    background-color: #121621;
+    border-color: #4a5167;
+    border-radius: 0.25rem;
+    height: auto;
+    padding: 0.535rem 0.875rem;
+    line-height: 1.5;
+    font-size: .9375rem;
+}
+.size-60 {
+    width: 60px!important;
+    height: 60px!important;
+}
+.flex-center {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

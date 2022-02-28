@@ -1,0 +1,119 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{%block content%}
+<main>
+    <section class="border-top pt-5 pt-lg-6">
+        
+    <div class="container py-7">
+
+        <!--Steps-->
+        {% include 'orders/include/steps.html' %}
+
+        <div class="row">
+            <div class="col-md-8 mb-4">
+                <h3 class="mb-4">Select a payment option</h3>
+                <div id="payment_collapse_group">
+                    <!--payment-collapse-group-->
+                <div class="form-check-group">
+                    <input class="form-check-group-input d-none" checked type="radio" name="payment_options"
+                        id="default_address">
+                    <label data-bs-toggle="collapse" data-bs-target="#payment_collapse_paypal" class="form-check-group-label" for="default_address">
+                        <strong>Paypal</strong><br>
+                        <span>Pay with paypal</span>
+                    </label>
+
+                <!--Paypal-->
+                <div id="payment_collapse_paypal" class="collapse show" data-bs-parent="#payment_collapse_group">
+                  <div class="p-3">
+                    <a href="#!" class="btn btn-primary d-block w-100">Pay with Paypal Now</a>
+                  </div>
+                </div>
+                </div>
+                
+                <!--Payment cards-->
+                <div class="form-check-group">
+                    <input type="radio" class="form-check-group-input d-none" name="payment_options" id="payment_option_cards"
+                    autocomplete="off">
+                <label class="form-check-group-label" data-bs-toggle="collapse"
+                    data-bs-target="#payment_collapse_cards" for="payment_option_cards"><i class="far fa-credit-card small me-2"></i><strong>Credit/debit card</strong></label>
+                
+                 <!--Payment card collapse-->
+                 <div class="collapse" id="payment_collapse_cards" data-bs-parent="#payment_collapse_group">
+                   <div class="p-3">
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <input type="text" id="card_number" placeholder="Card Number" class="form-control">
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                         <input type="text" id="card_name" class="form-control" placeholder="Name on Card">
+                     </div>
+                     <div class="col-sm-6 mb-3">
+                         <input type="text" id="card_validiy" class="form-control" placeholder="Valid thru MM/YY">
+                     </div>
+                     <div class="col-sm-6 mb-3">
+                         <input type="text" id="card_cvv" class="form-control" placeholder="CVV">
+                     </div>
+                     <div class="col-12 mb-3">
+                       <div class="form-check">
+                        <input type="checkbox" id="card_save" class="form-check-input">
+                        <label for="card_save" class="form-check-label">Save this card for faster payments</label>
+                       </div>
+                     </div>
+                     <div class="d-grid">
+                         <a href="checkout-payments.html" class="btn btn-primary">Pay Now</a>
+                     </div>
+                    </div>
+                   </div>
+                 </div>
+                </div>
+                   <!--payment-collapse-group-->
+                   <div class="form-check-group">
+                    <input class="form-check-group-input d-none" type="radio" name="payment_options"
+                        id="payment_option_cod">
+                    <label data-bs-toggle="collapse" data-bs-target="#payment_collapse_cod" class="form-check-group-label" for="payment_option_cod">
+                        <strong>Cash on delivery</strong><br>
+                        <span>Pay to our delivery agent </span>
+                    </label>
+
+                <!--Paypal-->
+                <div id="payment_collapse_cod" class="collapse" data-bs-parent="#payment_collapse_group">
+                 <div class="p-3">
+                    <a href="#!" class="btn btn-primary w-100 d-block">Place order</a>
+                 </div>
+                </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <!--price details-->
+                <div class="card card-body mb-4 basket-price-details">
+                    <h6 class="mb-3">Price details</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-0 d-flex align-items-center justify-content-between">
+                            <span>Total</span>
+                            <span>$1698</span>
+                        </li>
+                        <li class="list-group-item px-0 d-flex align-items-center justify-content-between">
+                            <span>Coupon discount</span>
+                            <span>$0 </span>
+                        </li>
+                        <li class="list-group-item px-0 d-flex align-items-center justify-content-between">
+                            <span>Shipping fee</span>
+                            <span><span class="text-success">Free </span><del class="opacity-75">$9.00</del></span>
+                        </li>
+                        <li class="list-group-item px-0 d-flex align-items-center justify-content-between">
+                            <strong>Total amount</strong>
+                            <strong>$1698</strong>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    </section>
+</main>
+
+{%endblock%}

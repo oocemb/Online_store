@@ -1,0 +1,9 @@
+
+<!--Steps-->
+<ol class="checkout-steps px-4 py-3 rounded-3 border shadow-sm list-unstyled mb-5 mb-lg-7">
+    <li class="active"><a href="{% url 'orders:cart_detail' %}" class="disabled">Cart</a></li>
+    <li class="divider"></li>
+    <li class="step"><a href="{% url 'orders:checkout_details' %}" class="disabled">Details</a></li>
+    <li class="divider"></li>
+    <li><a href="{% url 'orders:checkout_payments' %}" class="disabled">Payment</a></li>
+</ol>

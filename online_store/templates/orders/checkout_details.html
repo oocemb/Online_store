@@ -1,0 +1,151 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{%block content%}
+<main>
+        
+    <div class="container py-7 mt-5">
+
+        <!--Steps-->
+        {% include "orders/include/steps.html" %}
+
+        <div class="row">
+            <div class="col-md-8">
+                <h4 class="mb-4">Select a delivery address</h4>
+                <div id="address_collapse_group">
+                    <!--Default address-->
+                <div class="form-check-group">
+                    <input class="form-check-group-input d-none" checked type="radio" name="address_options"
+                        id="default_address" value="option1" checked>
+                    <label data-bs-toggle="collapse" data-bs-target="#collapse_d_address" class="form-check-group-label" for="default_address">
+                        <strong>Adam Voges</strong><br>
+                        <span>Apartment 24, Lorem Street, <br>302012, LA</span>
+                    </label>
+                    
+                <!--Empty collapse-->
+                <div id="collapse_d_address" class="collapse" data-bs-parent="#address_collapse_group"></div>
+                </div>
+                <!--Different address-->
+                <div class="form-check-group">
+                    <input type="radio" class="form-check-group-input d-none" name="address_options" id="option1"
+                    autocomplete="off">
+                <label class="form-check-group-label" data-bs-toggle="collapse"
+                    data-bs-target="#d_address" for="option1"><i class="fas fa-plus small me-2"></i><strong>Add new address</strong></label>
+                
+                 <!--Different address collapse-->
+                 <div class="collapse" id="d_address" data-bs-parent="#address_collapse_group">
+                   <div class="p-3">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">First Name*</label>
+                                <input type="text" class="form-control" placeholder="John">
+                            </div>
+                            <!--/mb-3-->
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">Last Name*</label>
+                                <input type="text" class="form-control" placeholder="Doe">
+                            </div>
+                            <!--/mb-3-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">Country*</label>
+                                <input type="text" class="form-control" placeholder="Russia">
+                            </div>
+                            <!--/mb-3-->
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">Company Name</label>
+                                <input type="text" class="form-control" placeholder="Lorem ipsum">
+                            </div>
+                            <!--/mb-3-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="mb-3">
+                                <label class="form-label">Full Address*</label>
+                                <input type="text" class="form-control" placeholder="124, Lorem Street..">
+                            </div>
+                            <!--/mb-3-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">City / State*</label>
+                                <input type="text" class="form-control" placeholder="Jaipur">
+                            </div>
+                            <!--/mb-3-->
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">Zip/ Postal Code*</label>
+                                <input type="text" class="form-control" placeholder="302012">
+                            </div>
+                            <!--/mb-3-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">Email Address*</label>
+                                <input type="text" class="form-control" placeholder="john@doe.com">
+                            </div>
+                            <!--/mb-3-->
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">Phone*</label>
+                                <input type="text" class="form-control" placeholder="123-345-3322">
+                            </div>
+                            <!--/mb-3-->
+                        </div>
+                    </div>
+                   </div>
+                </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <!--Cart summary-->
+                <h4>Cart Summary</h4>
+                <div class="list-group mb-4">
+                    <div class="list-group-item">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span>Cart Subtotal</span>
+                            <span>${{total_basket_price}}</span>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span>Shipping &amp; Handling</span>
+                            <span>$0.00 <span class="text-success small">Free</span></span>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span><strong>Total</strong></span>
+                            <span><strong>${{total_basket_price}}</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-grid">
+                    <a href="{% url 'orders:checkout_payments' %}" class="btn btn-primary">Оплатить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</main>
+
+
+<!--Nice select-->
+{%endblock%}

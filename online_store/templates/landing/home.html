@@ -1,0 +1,105 @@
+{%extends 'base.html'%}
+{%load static%}
+
+    {%block content%}
+    
+    <div class="container mt-3">
+        <div class="row">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="{% static 'image/carousel3.jpg' %}" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{% static 'image/carousel2.jpg' %}" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{% static 'image/carousel1.jpg' %}" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-4">
+                <div class="card mt-4">
+                    <img src="{% static 'image/promotion1.jpg' %}" class="card-img-top" alt="...">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card mt-4">
+                    <img src="{% static 'image/promotion2.jpg' %}" class="card-img-top" alt="...">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card mt-4">
+                    <img src="{% static 'image/promotion3.jpg' %}" class="card-img-top" alt="...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+            
+            <section class="overflow-hidden position-relative">
+              <h2 class="text-center mb-4 mt-5 display-5">Shop by Category</h2>
+              <div class="container pb-7">
+                  <div class="swiper-container swiper-category">
+                      <div class="swiper-wrapper">
+                        {% for item in categories_count %}
+                          <div class="swiper-slide">
+                              <a class="card border-0 category-box text-body" href="#">
+                                  <img src="/{{ item.category__image }}" alt="" class="img-fluid">
+                                  <div class="card-body category-text d-flex align-items-center justify-content-between p-4"> 
+                                    <h4 class="h5 mb-0" style="color: white;">{{item.category__name}}</h4>
+                                      <p class="mb-0 small flex-shrink-0" style="color: white;">{{item.count}}  items</p>
+                                  </div>
+                              </a>
+                              <!--/category-box-->
+                          </div>
+                          <!--/item-->
+                        {% endfor%}
+                      </div>
+                      <!--Pagination-->
+                      <div class="position-relative pt-5">
+                          <div class="swiper-pagination"></div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+          
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center mb-3 mt-5 display-5">Featured products</h2>
+        {% for product_image in products_images %}
+        <div class="col-lg-3">
+          <div class="card mt-4">
+            <img src="{{ product_image.image.url }}" class="card-img-top" alt="...">
+            <div class="container button-product-home">
+                <div class="row">
+                    <a role="button" class="col btn btn-dark" href="{% url 'product:product' product_image.product.pk %}" style="color: white;">Подробнее</a>
+                    &nbsp;&nbsp;
+                    <a role="button" class="col btn btn-warning" style="color: black;">В корзину</a>
+                </div>
+            </div>
+            <div class="card-body">
+              <a class="card-text text-name" href="{% url 'product:product' product_image.product.pk %}">{{product_image.product.name}}</a>
+              <p class="card-text text-price">&#8381; {{product_image.product.price}}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor%}
+        </div>
+    </div>
+    {%endblock%}

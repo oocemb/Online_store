@@ -1,0 +1,32 @@
+html,body{
+    height: 100%;
+    max-height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.top-container{
+    padding-top: 10%;
+    color: white;
+}
+.general-container{
+    background: url('image/background.jpg') 100% 100% no-repeat;
+    background-size: cover;
+    height: 100%;
+    
+}
+.title{
+    text-align: center;
+    color: white;
+    font-weight: 100;
+    line-height: 50px;
+}
+.btn-gold{
+    background-color: goldenrod;
+    color: white;
+    border: 1px;
+}
+.btn-gold:hover{
+    background-color: gold;
+    color: white;
+    border: none;
+}
