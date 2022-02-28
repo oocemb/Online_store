@@ -1,30 +1,51 @@
+// Swiper-slider
+const swiper = new Swiper('.swiper-category', {
+    breakpoints: {
+        // when window width is >= 320px
+        320: {
+            slidesPerView: 1,
+            spaceBetween: 20
+        },
+        // when window width is >= 480px
+        480: {
+            slidesPerView: 1,
+            spaceBetween: 30
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 3,
+            spaceBetween: 40
+        }
+    },
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+    },
+});
+
 $(document).ready(function(){
     
-
     function basketUpdating(product_id, nmb, is_delete){
+        // Ajax обновляет данные в корзине при изменении количества товаров и удаляет при тэге is_delete
         var data = {};
         data.product_id = product_id;
         data.nmb = nmb;
-        // var csrf_token = $('#form_buying_product [name="csrfmiddlewaretoken"]').val();
-        var csrf_token = $('#csrf_getting_form [name="csrfmiddlewaretoken"]').val(); // можно добавить скрытую форму на главной чтобы все запросы обрабатывать с csrf токеном
-        data["csrfmiddlewaretoken"] = csrf_token;
+        data["csrfmiddlewaretoken"] = $('#csrf_getting_form [name="csrfmiddlewaretoken"]').val();
         if (is_delete){
             data.is_delete = true;
         }
         
         var form_csrf = $('#csrf_getting_form');
-        var url = form_csrf.attr("action");
-        console.log(url)
+        var url = form_csrf.attr("action"); // форма на базовом шаблоне для работы с корзиной
+
         $.ajax({
             url: url,
             type: 'POST',
             data: data,
             cache: true,
             success: function (data){
-                    
                     $('.list-unstyled.cart-list').html("");
                     $.each(data.products, function(key, value){
-                        console.log(value.image)
                         if (value.nmb > 0){
                             $('.list-unstyled.cart-list').append('\
                             <li class="d-flex mb-4 align-items-center"> \
@@ -36,9 +57,9 @@ $(document).ready(function(){
                               <div class="position-relative pe-5 flex-grow-1"> \
                                   <span \
                                       class="btn btn-outline-secondary size-15 flex-center rounded-circle position-absolute end-0 top-50 translate-middle-y delete-item" \
-                                       data-product_id = "' + value.id + '">&#10006;</span> \
+                                       data-product_id = "' + value.id_prod_basket + '">&#10006;</span> \
                                   <h6 class="mb-1"><a href="#">' + value.name + '</a></h6> \
-                                  <p class="mb-0"><span class="price text-muted small">$' + value.price_per_item + '</span> x ' + value.nmb + '</p> \
+                                  <p class="mb-0"><span class="price text-muted small">&#8381;' + value.price_per_item + '</span> x ' + value.nmb + '</p> \
                               </div> \
                             </li>');
                         }
@@ -73,9 +94,9 @@ $(document).ready(function(){
                                 <div class="position-relative pe-5">\
                                     <!--Remove button-->\
                                     <a href="#!" class="text-muted position-absolute end-0 top-0 me-3 mt-3"><i class="far fa-trash-alt delete-item"\
-                                        data-product_id="' + value.id + '"></i></a>\
+                                        data-product_id="' + value.id_prod_basket + '"></i></a>\
                                      <!--Brand-->\
-                                 <p class="mb-1 small"><a href="#!">'+ value.price_per_item +'</a></p>\
+                                 <p class="mb-1 small"><a href="#!">'+ value.category +'</a></p>\
                                  <!--Product-->\
                                  <h5 class="mb-2">\
                                      <a href="#!">' + value.name + '</a>\
@@ -87,10 +108,10 @@ $(document).ready(function(){
                                      <small class="text-muted me-3">QTY</small>\
                                      <div class="count-input">\
                                          <a class="incr-btn" data-action="decrease" href="#"\
-                                         data-product_id="'+ value.id +'">–</a>\
+                                         data-product_id="'+ value.id_prod +'">–</a>\
                                          <input class="quantity px-0 py-0 form-control bg-transparent" type="text" value="' + value.nmb + '" name="prod_nmb_' + value.id + '">\
                                          <a class="incr-btn" data-action="increase" href="#"\
-                                         data-product_id="'+ value.id +'">+</a>\
+                                         data-product_id="'+ value.id_prod +'">+</a>\
                                      </div>\
                                     </div>\
                                 </div>\
@@ -124,53 +145,42 @@ $(document).ready(function(){
                 
             },
             error: function (data){
-                console.log('error')
+                console.log('error basketUpdate')
             }
         });
     };
 
-    
-    
-    var form = $('#form_buying_product');
-    // console.log(form);
 
-    form.on('submit', function(e){
+    $(document).on('click', '.button_add_to_basket', function(e){
+        // Добавляет товар в количестве 1 шт в корзину (Страница: Главная / Товары)
+        e.preventDefault();
+        var nmb = 1
+        basketUpdating($(this).data("product_id"), nmb, is_delete=false)    
+    });
+
+    var form_buying_product = $('#form_buying_product')
+    form_buying_product.on('submit', function(e){
+        // Добавляет товар в количестве на счётчике -> quantity шт в корзину (Страница: Товар)
         e.preventDefault();
         var nmb = $('#quantity').val();
-        var submit_btn = $('#submit_btn');
-        var product_id = submit_btn.data("product_id");
         if (nmb > 0){
-            basketUpdating(product_id, nmb, is_delete=false)
+            basketUpdating($('#submit_btn').data("product_id"), nmb, is_delete=false)
         };     
-        
     });
 
     $(document).on('click', '.delete-item', function(e){
+        // Удаляет выбранный по ID товар из корзины
         e.preventDefault();
         product_id = $(this).data("product_id");
         console.log(product_id);
-
         nmb = 0;
         basketUpdating(product_id, nmb, is_delete=true)
 
     });
 
-    function totalBasketAmount(){
-        var total_order_amount = 0;
-        $('.product-price-in-basket').each(function(){
-            var oldValue = $(this).parent().find('.quantity').val();
-            total_order_amount += parseInt($(this).text())*parseInt(oldValue);
-            
-        });
-        $('#total-basket-amount').text(total_order_amount)
-        $('#total-basket-amount-to-pay').text(total_order_amount)
-    };
-
-    totalBasketAmount();
-
-    $(document).on("click", ".incr-btn", function (e) {
-        e.preventDefault();
-        var $button = $(this);
+    function clickQuantity(this1){
+        // Только отображает и меняет количество (Страницы: Товар. Корзина)
+        var $button = this1;
         var oldValue = $button.parent().find('.quantity').val();
         $button.parent().find('.incr-btn[data-action="decrease"]').removeClass('inactive');
         if ($button.data('action') == "increase") {
@@ -185,42 +195,21 @@ $(document).ready(function(){
             }
         }
         $button.parent().find('.quantity').val(newVal);
-        totalBasketAmount();
-        console.log($(this).data("product_id"), newVal)
+        return nmb_quantity = (newVal - oldValue)
+    }
+
+    $(document).on("click", ".incr-btn", function (e) {
+        // Ajax Обновялет количество данного товара в корзине (Страницы: Корзина)
+        e.preventDefault();
+        clickQuantity($(this))
         basketUpdating($(this).data("product_id"), (newVal-oldValue), is_delete=false)
         });
 
     $(document).on("click", ".incr-btn-only", function (e) {
+        // Только отображает и меняет количество "добавляется кнопкой в корзину" (Страницы: Товар)
         e.preventDefault();
-        var $button = $(this);
-        var oldValue = $button.parent().find('.quantity').val();
-        $button.parent().find('.incr-btn[data-action="decrease"]').removeClass('inactive');
-        if ($button.data('action') == "increase") {
-            var newVal = parseFloat(oldValue) + 1;
-        } else {
-            // Don't allow decrementing below 1
-            if (oldValue > 1) {
-                var newVal = parseFloat(oldValue) - 1;
-            } else {
-                newVal = 1;
-                $button.addClass('inactive');
-            }
-        }
-        $button.parent().find('.quantity').val(newVal);
+        clickQuantity($(this))
         });
-    
 
-    // function showme(){
-    //     $('.basket-item').toggleClass('hidden');
-    // }
-    // $('.basket-container').on('click', function(e){
-    //     e.preventDefault();
-    //     showme();
-    // })
-    // $('.basket-container').onmouseover(function(e){
-    //     showme();
-    // })
-    // $('.basket-container').onmouseout(function(e){
-    //     showme();
-    // })
+
 });

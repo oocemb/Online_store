@@ -18,14 +18,12 @@ def basket_adding(request):
 
     data = request.POST
     product_id = data.get("product_id")
-    product_in_basket_id = data.get("product_in_basket_id", False)
     nmb = data.get("nmb")
     is_delete = data.get("is_delete")
-    print(product_in_basket_id)
+
     if is_delete == "true":
         ProductInBasket.objects.filter(session_key=session_key, id=product_id).update(is_active=False)    
     else:
-        print("qqweqwe")
         new_prod, created = ProductInBasket.objects.get_or_create(session_key=session_key, product_id=product_id, is_active=True, defaults={"nmb":nmb}) 
         if not created:
             new_prod.nmb += int(nmb)
@@ -35,13 +33,13 @@ def basket_adding(request):
     prod_total_nmb = prod_in_basket.count()
     return_dict["prod_total_nmb"] = prod_total_nmb
     return_dict["total_basket_price"] = sum(prod.total_amount for prod in prod_in_basket)
-
-
     return_dict["products"] = list()
 
     for item in prod_in_basket:
         prod_dict = dict()
-        prod_dict["id"] = item.product.id
+        prod_dict["id_prod"] = item.product.id
+        prod_dict["category"] = item.product.category.name
+        prod_dict["id_prod_basket"] = item.id
         prod_dict["image"] = ProductImage.objects.get(is_main = True, product__pk = item.product.id).image.url
         prod_dict["name"] = item.product.name
         prod_dict["price_per_item"] = item.price_per_item

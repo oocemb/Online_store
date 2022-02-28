@@ -9,7 +9,7 @@ html,body{
     color: white;
 }
 .general-container{
-    background: url('image/background.jpg') 100% 100% no-repeat;
+    background-color: #6e7281;
     background-size: cover;
     height: 100%;
     

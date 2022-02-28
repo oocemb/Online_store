@@ -53,7 +53,7 @@
 
             
             <section class="overflow-hidden position-relative">
-              <h2 class="text-center mb-4 mt-5 display-5">Shop by Category</h2>
+              <h2 class="text-center mb-5 mt-5 display-5">Shop by Category</h2>
               <div class="container pb-7">
                   <div class="swiper-container swiper-category">
                       <div class="swiper-wrapper">
@@ -82,20 +82,24 @@
     <div class="container">
         <div class="row">
             <h2 class="text-center mb-3 mt-5 display-5">Featured products</h2>
-        {% for product_image in products_images %}
+        {% for product in featured_products %}
         <div class="col-lg-3">
           <div class="card mt-4">
-            <img src="{{ product_image.image.url }}" class="card-img-top" alt="...">
+            <img src="{{ product.main_image.url }}" class="card-img-top" alt="...">
             <div class="container button-product-home">
                 <div class="row">
-                    <a role="button" class="col btn btn-dark" href="{% url 'product:product' product_image.product.pk %}" style="color: white;">Подробнее</a>
+
+                    <a role="button" class="col btn btn-dark" href="{% url 'product:product' product.pk %}" style="color: white;">Подробнее</a>
                     &nbsp;&nbsp;
-                    <a role="button" class="col btn btn-warning" style="color: black;">В корзину</a>
+                    <button role="button" type="submit" class="col btn btn-warning button_add_to_basket" 
+                    data-product_id = "{{ product.id }}" style="color: black;">В корзину</button>
+
+
                 </div>
             </div>
             <div class="card-body">
-              <a class="card-text text-name" href="{% url 'product:product' product_image.product.pk %}">{{product_image.product.name}}</a>
-              <p class="card-text text-price">&#8381; {{product_image.product.price}}</p>
+              <a class="card-text text-name" href="{% url 'product:product' product.pk %}">{{product.name}}</a>
+              <p class="card-text text-price">&#8381; {{product.price}}</p>
             </div>
           </div>
         </div>
