@@ -1,6 +1,7 @@
 from django.http import JsonResponse
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+# from robokassa.forms import RobokassaForm
 from products.models import ProductImage
 from .models import *
 from django.contrib.auth.models import User
@@ -72,3 +73,17 @@ def checkout_payments(request):
     return render(request, 'orders/checkout_payments.html', locals())
 
 
+# @login_required
+# def pay_with_robokassa(request, order_id):
+#     order = get_object_or_404(Order, pk=order_id)
+
+#     form = RobokassaForm(initial={
+#                'OutSum': order.total_price,
+#                'InvId': order.id,
+#                'Name': order.user.name,
+#                'Email': request.user.email,
+#                # 'IncCurrLabel': '',
+#                # 'Culture': 'ru'
+#            })
+
+#     return render(request, 'pay_with_robokassa.html', {'form': form})

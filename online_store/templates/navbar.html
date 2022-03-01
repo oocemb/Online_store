@@ -100,7 +100,7 @@
   <!--Cart action-->
   <div class="offcanvas-footer p-4">
       <div class="text-center d-grid">
-          <a href="checkout-details.html" class="btn btn-secondary mb-2">Checkout</a>
+          <a href="{% url 'orders:checkout_details' %}" class="btn btn-secondary mb-2">Checkout</a>
           <a href="{% url 'orders:cart_detail' %}">View Cart</a>
       </div>
   </div>

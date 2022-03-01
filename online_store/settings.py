@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'robokassa',
     'landing',
     'orders',
     'products',
@@ -132,3 +133,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ROBOKASSA_TEST_MODE = True
+ROBOKASSA_LOGIN = env('ROBOKASSA_LOGIN')
+ROBOKASSA_PASSWORD1 = env('ROBOKASSA_PASSWORD1')
